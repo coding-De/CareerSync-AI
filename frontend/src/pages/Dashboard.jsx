@@ -1,36 +1,49 @@
 import axios from 'axios'
+import { useEffect } from 'react'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router'
 
 function Dashboard() {
 
-  // const { loading, generateReport,reports } = useInterview()
-    const [ jobDescription, setJobDescription ] = useState("")
-    const [ selfDescription, setSelfDescription ] = useState("")
+    // const { loading, generateReport,reports } = useInterview()
+    const [jobDescription, setJobDescription] = useState("")
+    const [selfDescription, setSelfDescription] = useState("")
+    const [reports, setReports] = useState([])
     const resumeInputRef = useRef()
     const api = axios.create({
-    baseURL: "http://localhost:3000",
-    withCredentials: true,
-})
+        baseURL: "http://localhost:3000",
+        withCredentials: true,
+    })
 
     const navigate = useNavigate()
 
-    const handleGenerateReport = async () => {
-        const resumeFile = resumeInputRef.current.files[ 0 ]
-        // const data = await generateReport({ jobDescription, selfDescription, resumeFile })
-        // navigate(`/interview/${data._id}`)
-         const formData = new FormData()
-    formData.append("jobDescription", jobDescription)
-    formData.append("selfDescription", selfDescription)
-    formData.append("resume", resumeFile)
-
-    const response = await api.post("/interview", formData, {
-        headers: {
-            "Content-Type": "multipart/form-data"
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                const response = await api.get("/interview/getall")
+                setReports(response.data.interviews)
+            } catch (error) {
+                console.error("Error fetching reports:", error)
+            }
         }
-    })
 
-    navigate(`/interview/${response.data.interviewReport._id}`)
+        fetchReports()
+    }, [])
+
+    const handleGenerateReport = async () => {
+        const resumeFile = resumeInputRef.current.files[0]
+        const formData = new FormData()
+        formData.append("jobDescription", jobDescription)
+        formData.append("selfDescription", selfDescription)
+        formData.append("resume", resumeFile)
+
+        const response = await api.post("/interview", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+
+        navigate(`/interview/${response.data.interviewReport._id}`)
     }
 
     if (false) {
@@ -41,20 +54,20 @@ function Dashboard() {
         )
     }
 
-  const handlelogout = () => {
-    axios.post(`${import.meta.env.VITE_SERVICE_PATH}auth/logout`, {}, {
-      withCredentials: true
-    }).then((res) => {
-      localStorage.removeItem('token')
-      window.location.href = '/login'
-    }).catch((err) => {
-      console.error('Logout failed:', err)
-    })
-  }
-  return (
-   
-      <div className='home-page'>
-<button className='logout-btn' onClick={handlelogout}>Logout</button>
+    const handlelogout = () => {
+        axios.post(`${import.meta.env.VITE_SERVICE_PATH}auth/logout`, {}, {
+            withCredentials: true
+        }).then((res) => {
+            localStorage.removeItem('token')
+            window.location.href = '/login'
+        }).catch((err) => {
+            console.error('Logout failed:', err)
+        })
+    }
+    return (
+
+        <div className='home-page'>
+            <button className='logout-btn' onClick={handlelogout}>Logout</button>
             {/* Page Header */}
             <header className='page-header'>
                 <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>
@@ -149,7 +162,7 @@ function Dashboard() {
             </div>
 
             {/* Recent Reports List */}
-            {/* {reports.length > 0 && (
+            {reports.length > 0 && (
                 <section className='recent-reports'>
                     <h2>My Recent Interview Plans</h2>
                     <ul className='reports-list'>
@@ -162,7 +175,7 @@ function Dashboard() {
                         ))}
                     </ul>
                 </section>
-            )} */}
+            )}
 
             {/* Page Footer */}
             <footer className='page-footer'>
@@ -171,8 +184,8 @@ function Dashboard() {
                 <a href='#'>Help Center</a>
             </footer>
         </div>
-   
-  )
+
+    )
 }
 
 export default Dashboard

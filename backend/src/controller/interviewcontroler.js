@@ -48,4 +48,11 @@ console.log("interviewId", interviewId)
     });
 }
 
-module.exports = {generateinterviewcontroler, getInterviewReport}
+async function getAllInterviews(req, res) {
+    const interviews = await interviewReportModel.find({ user: req.user.id }).sort({ createdAt: -1 }).select('-resume -selfDescription -jobDescription -__v -technicalQuestions -behavioralQuestions -preparationPlan -skillGaps');
+    res.status(200).json({
+        interviews
+    });
+}
+
+module.exports = {generateinterviewcontroler, getInterviewReport, getAllInterviews}

@@ -8,5 +8,6 @@ const interviewRouter = express.Router();
 
 interviewRouter.post('/',authmiddleware.authUser,upload.single('resume'),interviewControler.generateinterviewcontroler)
 interviewRouter.get('/report/:interviewId', authmiddleware.authUser, interviewControler.getInterviewReport)
+interviewRouter.get('/getall', authmiddleware.authUser, interviewControler.getAllInterviews)
 
 module.exports = interviewRouter;
