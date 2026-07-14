@@ -13,7 +13,7 @@ function LoginPage() {
       withCredentials: true
     }).then((res) => {
       if (res.data) {
-        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('login', true)
         navigate('/')
       }
     }).catch((err) => {

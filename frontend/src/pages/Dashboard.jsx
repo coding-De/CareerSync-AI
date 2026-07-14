@@ -53,21 +53,9 @@ function Dashboard() {
             </main>
         )
     }
-
-    const handlelogout = () => {
-        axios.post(`${import.meta.env.VITE_SERVICE_PATH}auth/logout`, {}, {
-            withCredentials: true
-        }).then((res) => {
-            localStorage.removeItem('token')
-            window.location.href = '/login'
-        }).catch((err) => {
-            console.error('Logout failed:', err)
-        })
-    }
     return (
 
         <div className='home-page'>
-            <button className='logout-btn' onClick={handlelogout}>Logout</button>
             {/* Page Header */}
             <header className='page-header'>
                 <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>

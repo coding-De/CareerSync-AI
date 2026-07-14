@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
+import Header from './Header'
 
 function Protected({children}) {
   const navigate = useNavigate()
@@ -20,6 +21,7 @@ function Protected({children}) {
 
   return (
     <div>
+      <Header />
       {children}
     </div>
   )
