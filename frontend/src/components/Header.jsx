@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router'
 
 // Token system
 // Ink:        #16233F  (wordmark, headings)
@@ -13,8 +14,7 @@ import React, { useState, useEffect } from 'react'
 
 const links = [
   { label: 'Dashboard', href: '/' },
-  { label: 'Jobs', href: '/jobs' },
-  { label: 'Applications', href: '/applications' },
+  { label: 'All Interviews', href: '/all-interviews' },
 ]
 
 function MenuIcon() {
@@ -79,21 +79,21 @@ function Header() {
           {links.map((link) => {
             const isActive = active === link.href
             return (
-              <a
+              <NavLink
                 key={link.href}
-                href={link.href}
+                to={link.href}
                 onClick={() => setActive(link.href)}
                 className={`csa-nav-link ${isActive ? 'active' : ''}`}
               >
                 {link.label}
                 {isActive && <span className="csa-active-indicator" />}
-              </a>
+              </NavLink>
             )
           })}
         </nav>
 
         <div className="csa-actions-desktop">
-         {localStorage.getItem('login') ? (
+         {!localStorage.getItem('login') ? (
             <a href="/login" className="csa-login-link">Log in</a>
           ) : (
             <div className="csa-cta" onClick={handlelogout}>

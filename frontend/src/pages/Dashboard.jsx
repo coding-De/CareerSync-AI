@@ -2,13 +2,11 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router'
+import InterviewPlans from '../components/InterviewPlans'
 
 function Dashboard() {
-
-    // const { loading, generateReport,reports } = useInterview()
     const [jobDescription, setJobDescription] = useState("")
     const [selfDescription, setSelfDescription] = useState("")
-    const [reports, setReports] = useState([])
     const resumeInputRef = useRef()
     const api = axios.create({
         baseURL: "http://localhost:3000",
@@ -16,19 +14,6 @@ function Dashboard() {
     })
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        const fetchReports = async () => {
-            try {
-                const response = await api.get("/interview/getall")
-                setReports(response.data.interviews)
-            } catch (error) {
-                console.error("Error fetching reports:", error)
-            }
-        }
-
-        fetchReports()
-    }, [])
 
     const handleGenerateReport = async () => {
         const resumeFile = resumeInputRef.current.files[0]
@@ -46,13 +31,13 @@ function Dashboard() {
         navigate(`/interview/${response.data.interviewReport._id}`)
     }
 
-    if (false) {
-        return (
-            <main className='loading-screen'>
-                <h1>Loading your interview plan...</h1>
-            </main>
-        )
-    }
+    // if (false) {
+    //     return (
+    //         <main className='loading-screen'>
+    //             <h1>Loading your interview plan...</h1>
+    //         </main>
+    //     )
+    // }
     return (
 
         <div className='home-page'>
@@ -149,21 +134,8 @@ function Dashboard() {
                 </div>
             </div>
 
-            {/* Recent Reports List */}
-            {reports.length > 0 && (
-                <section className='recent-reports'>
-                    <h2>My Recent Interview Plans</h2>
-                    <ul className='reports-list'>
-                        {reports.map(report => (
-                            <li key={report._id} className='report-item' onClick={() => navigate(`/interview/${report._id}`)}>
-                                <h3>{report.title || 'Untitled Position'}</h3>
-                                <p className='report-meta'>Generated on {new Date(report.createdAt).toLocaleDateString()}</p>
-                                <p className={`match-score ${report.matchScore >= 80 ? 'score--high' : report.matchScore >= 60 ? 'score--mid' : 'score--low'}`}>Match Score: {report.matchScore}%</p>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-            )}
+           
+           <InterviewPlans/>
 
             {/* Page Footer */}
             <footer className='page-footer'>

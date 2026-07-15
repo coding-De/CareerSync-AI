@@ -5,6 +5,7 @@ import Registration from '../pages/Registration';
 import LoginPage from '../pages/LoginPage';
 import Protected from '../components/Protected';
 import Interview from '../pages/Interview';
+import InterviewPlans from '../components/InterviewPlans';
 
 export const router = createBrowserRouter([
     {
@@ -22,5 +23,9 @@ export const router = createBrowserRouter([
     {
         path:"/interview/:interviewId",
         element: <Protected><Interview /></Protected>
+    },
+    {
+        path:"/all-interviews",
+        element: <Protected><InterviewPlans /></Protected>
     }
 ])
