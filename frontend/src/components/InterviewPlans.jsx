@@ -6,7 +6,7 @@ function InterviewPlans() {
     const [reports, setReports] = useState([])
     const navigate = useNavigate()
     const api = axios.create({
-        baseURL: "http://localhost:3000",
+        baseURL: import.meta.env.VITE_SERVICE_PATH,
         withCredentials: true,
     })
 

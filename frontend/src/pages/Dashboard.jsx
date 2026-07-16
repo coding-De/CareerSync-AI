@@ -9,7 +9,7 @@ function Dashboard() {
     const [selfDescription, setSelfDescription] = useState("")
     const resumeInputRef = useRef()
     const api = axios.create({
-        baseURL: "http://localhost:3000",
+        baseURL: import.meta.env.VITE_SERVICE_PATH,
         withCredentials: true,
     })
 

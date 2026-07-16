@@ -62,7 +62,7 @@ const Interview = () => {
     const [report, setReport] = useState(null)
     const { interviewId } = useParams()
     const api = axios.create({
-        baseURL: "http://localhost:3000",
+        baseURL: import.meta.env.VITE_SERVICE_PATH,
         withCredentials: true,
     })
 
