@@ -28,11 +28,11 @@ const resisteruserControler = async (req,res)=>{
 
     const token = jwt.sign({ id: user._id, username: user.name }, process.env.JWT_SECRET, { expiresIn: "1d" });
     console.log(token)
-    res.cookie("token", token, {
-  httpOnly: true,
-  secure: false,
-  sameSite: "lax",
-  path: "/",
+   res.cookie("token", token, {
+  httpOnly: true,     // Security ke liye (Frontend JS ise read nahi kar payegi)
+  secure: true,       // HTTPS par hi cookie chalegi (Render par zaroori hai)
+  sameSite: "none",   // Cross-site requests ke sath cookie bhejne ke liye zaroori hai
+  maxAge: 24 * 60 * 60 * 1000 // 1 day expiration
 });
     res.status(201).json({ message: "User created successfully" });
 }
@@ -56,11 +56,11 @@ const loginuserControler = async (req,res)=>{
     }
 
     const token = jwt.sign({ id: user._id, username: user.name }, process.env.JWT_SECRET, { expiresIn: "1d" });
-    res.cookie("token", token, {
-  httpOnly: true,
-  secure: false,
-  sameSite: "lax",
-  path: "/",
+   res.cookie("token", token, {
+  httpOnly: true,     // Security ke liye (Frontend JS ise read nahi kar payegi)
+  secure: true,       // HTTPS par hi cookie chalegi (Render par zaroori hai)
+  sameSite: "none",   // Cross-site requests ke sath cookie bhejne ke liye zaroori hai
+  maxAge: 24 * 60 * 60 * 1000 // 1 day expiration
 });
     res.status(200).json({ message: "Login successful" });
 }
