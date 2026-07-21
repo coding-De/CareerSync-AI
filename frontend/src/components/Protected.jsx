@@ -11,11 +11,11 @@ function Protected({children}) {
       withCredentials: true
     }).then((res) => {
       if (!res.data) {
-        navigate('/');
+        navigate('/login');
         localStorage.removeItem('login')
       }
     }).catch((err) => {
-      navigate('/')
+      navigate('/login');
       localStorage.removeItem('login')
     })
   }, [])

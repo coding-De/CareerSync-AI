@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 
 // Token system
 // Ink:        #16233F  (wordmark, headings)
@@ -55,7 +55,7 @@ function Header() {
             withCredentials: true
         }).then((res) => {
             localStorage.removeItem('login')
-            navigate('/')
+            navigate('/login')
         }).catch((err) => {
             console.error('Logout failed:', err)
         })
