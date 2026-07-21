@@ -11,10 +11,10 @@ function Protected({children}) {
       withCredentials: true
     }).then((res) => {
       if (!res.data) {
-        navigate('/login')
+        navigate('/')
       }
     }).catch((err) => {
-      navigate('/login')
+      navigate('/')
     })
   }, [])
 
