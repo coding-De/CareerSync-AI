@@ -40,6 +40,7 @@ function Header() {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('/')
   const [pulse, setPulse] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -54,7 +55,7 @@ function Header() {
             withCredentials: true
         }).then((res) => {
             localStorage.removeItem('login')
-            window.location.href = '/login'
+            navigate('/')
         }).catch((err) => {
             console.error('Logout failed:', err)
         })
