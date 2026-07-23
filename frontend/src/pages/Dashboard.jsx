@@ -31,13 +31,6 @@ function Dashboard() {
         navigate(`/interview/${response.data.interviewReport._id}`)
     }
 
-    // if (false) {
-    //     return (
-    //         <main className='loading-screen'>
-    //             <h1>Loading your interview plan...</h1>
-    //         </main>
-    //     )
-    // }
     return (
 
         <div className='home-page'>

@@ -2,16 +2,6 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router'
 
-// Token system
-// Ink:        #16233F  (wordmark, headings)
-// Paper:      #FAFAF8  (navbar surface)
-// Line:       #E4E1D8  (hairline border)
-// Slate:      #5C6470  (secondary text / inactive links)
-// Accent:     #1F7A5C  (sync green — active state, CTA)
-// Accent-soft:#E8F2ED  (accent tint background)
-//
-// Plain CSS only — no Tailwind, no icon library. Works in any React setup.
-
 const links = [
   { label: 'Dashboard', href: '/' },
   { label: 'All Interviews', href: '/all-interviews' },
